@@ -1,6 +1,7 @@
 package com.example.medireminder.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,22 +18,27 @@ import kotlinx.coroutines.launch
 class HistoryFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: MedicationAdapter
+    private lateinit var adapter: HistoryAdapter
     private lateinit var viewModel: MedicationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_medication_list, container, false)
-        recyclerView = view.findViewById(R.id.recyclerView)
+        val view = inflater.inflate(R.layout.fragment_history, container, false)
+        recyclerView = view.findViewById(R.id.recyclerViewHistory)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = MedicationAdapter() // Now works without parameters
+        adapter = HistoryAdapter { medication ->
+            lifecycleScope.launch {
+                viewModel.delete(medication)
+                Log.d("HistoryFragment", "Deleted medication: ${medication.id}")
+            }
+        }
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
@@ -42,6 +48,7 @@ class HistoryFragment : Fragment() {
 
         lifecycleScope.launch {
             viewModel.getMedicationsByStatus(true).collectLatest { medications ->
+                Log.d("HistoryFragment", "Received medications: ${medications.map { it.id }}")
                 adapter.submitList(medications)
             }
         }

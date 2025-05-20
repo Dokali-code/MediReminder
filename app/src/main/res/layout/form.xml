@@ -48,8 +48,8 @@
 
         <ImageButton
             android:id="@+id/btnTimePicker"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
             android:contentDescription="Time picker"
             android:src="@drawable/ic_access_time" />
     </LinearLayout>

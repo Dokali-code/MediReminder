@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.medireminder.R
@@ -39,18 +41,41 @@ class MedicationListFragment : Fragment() {
                 }
             },
             onDelete = { medication ->
-                lifecycleScope.launch {
-                    viewModel.delete(medication)
+                // Show a confirmation dialog instead of a toast
+                AlertDialog.Builder(requireContext())
+                    .setMessage("Delete medication: ${medication.name}?")
+                    .setPositiveButton("Delete") { dialog, which ->
+                        lifecycleScope.launch {
+                            viewModel.delete(medication)
+                        }
+                    }
+                    .setNegativeButton("Cancel") { dialog, which ->
+                        // Do nothing, dialog dismisses automatically
+                    }
+                    .show()
+            },
+            onUpdate = { medication ->
+                val bundle = Bundle().apply {
+                    putInt("medicationId", medication.id)
                 }
+                findNavController().navigate(R.id.action_medicationListFragment_to_formActivity, bundle)
             }
         )
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
 
         val dao = MedicationDatabase.getDatabase(requireContext()).medicationDao()
-        viewModel = ViewModelProvider(this, MedicationViewModelFactory(dao))
+        viewModel = ViewModelProvider(requireActivity(), MedicationViewModelFactory(dao))
             .get(MedicationViewModel::class.java)
 
+        lifecycleScope.launch {
+            viewModel.getMedicationsByStatus(false).collectLatest { medications ->
+                adapter.submitList(medications)
+            }
+        }
+    }
+    override fun onResume() {
+        super.onResume()
         lifecycleScope.launch {
             viewModel.getMedicationsByStatus(false).collectLatest { medications ->
                 adapter.submitList(medications)

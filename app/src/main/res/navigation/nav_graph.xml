@@ -7,7 +7,12 @@
 
     <fragment
         android:id="@+id/medicationListFragment"
-        android:name="com.example.medireminder.ui.MedicationListFragment" />
+        android:name="com.example.medireminder.ui.MedicationListFragment"
+        android:label="Reminders">
+        <action
+            android:id="@+id/action_medicationListFragment_to_formActivity"
+            app:destination="@id/formActivity" />
+    </fragment>
 
     <fragment
         android:id="@+id/historyFragment"
@@ -18,4 +23,14 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.medireminder.ui.SettingsFragment"
         android:label="Settings" />
+
+    <activity
+        android:id="@+id/formActivity"
+        android:name="com.example.medireminder.ui.FormActivity"
+        android:label="Add/Edit Medication">
+        <argument
+            android:name="medicationId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </activity>
 </navigation>

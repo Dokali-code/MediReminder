@@ -13,20 +13,23 @@ import com.example.medireminder.data.Medication
 
 class MedicationAdapter(
     private val onMarkAsTaken: (Medication) -> Unit = {},
-    private val onDelete: (Medication) -> Unit = {}
+    private val onDelete: (Medication) -> Unit = {},
+    private val onUpdate: (Medication) -> Unit = {}
 ) : ListAdapter<Medication, MedicationAdapter.MedicationViewHolder>(MedicationDiffCallback()) {
 
     class MedicationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val nameTextView: TextView = itemView.findViewById(R.id.tvMedicationName)
         private val dosageTextView: TextView = itemView.findViewById(R.id.tvDosage)
         private val timeTextView: TextView = itemView.findViewById(R.id.tvSelectedTime)
+        private val updateButton: Button = itemView.findViewById(R.id.btnUpdate)
         private val deleteButton: Button? = itemView.findViewById(R.id.btnDelete)
 
-        fun bind(medication: Medication, onMarkAsTaken: (Medication) -> Unit, onDelete: (Medication) -> Unit) {
+        fun bind(medication: Medication, onMarkAsTaken: (Medication) -> Unit, onDelete: (Medication) -> Unit, onUpdate: (Medication) -> Unit) {
             nameTextView.text = medication.name
             dosageTextView.text = medication.dosage
             timeTextView.text = medication.timeToTake
             itemView.setOnClickListener { onMarkAsTaken(medication) }
+            updateButton.setOnClickListener { onUpdate(medication) }
             deleteButton?.apply {
                 visibility = if (onDelete != {}) View.VISIBLE else View.GONE
                 setOnClickListener { onDelete(medication) }
@@ -40,7 +43,7 @@ class MedicationAdapter(
     }
 
     override fun onBindViewHolder(holder: MedicationViewHolder, position: Int) {
-        holder.bind(getItem(position), onMarkAsTaken, onDelete)
+        holder.bind(getItem(position), onMarkAsTaken, onDelete, onUpdate)
     }
 }
 

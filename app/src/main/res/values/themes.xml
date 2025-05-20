@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.MediReminder.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_access_time</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
         <item name="postSplashScreenTheme">@style/Theme.MediReminder</item>
     </style>
     <style name="Theme.MediReminder" parent="Theme.MaterialComponents.DayNight.DarkActionBar">

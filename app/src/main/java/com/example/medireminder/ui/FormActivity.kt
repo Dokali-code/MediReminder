@@ -27,6 +27,7 @@ class FormActivity : AppCompatActivity() {
     private lateinit var addButton: Button
 
     private var selectedTime: String = ""
+    private var medicationId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +41,24 @@ class FormActivity : AppCompatActivity() {
         addButton = findViewById(R.id.button)
 
         val medicationDao = MedicationDatabase.getDatabase(this).medicationDao()
+
+        // Check if editing an existing medication
+        medicationId = intent.getIntExtra("medicationId", -1)
+        if (medicationId != -1) {
+            lifecycleScope.launch(Dispatchers.IO) {
+                val medication = medicationDao.getMedicationById(medicationId)
+                launch(Dispatchers.Main) {
+                    medication?.let {
+                        nameEditText.setText(it.name)
+                        dosageEditText.setText(it.dosage)
+                        noteEditText.setText(it.note ?: "")
+                        tvSelectedTime.text = it.timeToTake
+                        selectedTime = it.timeToTake
+                        addButton.text = "Update"
+                    }
+                }
+            }
+        }
 
         btnTimePicker.setOnClickListener {
             val calendar = Calendar.getInstance()
@@ -65,6 +84,7 @@ class FormActivity : AppCompatActivity() {
             }
 
             val medication = Medication(
+                id = if (medicationId != -1) medicationId else 0,
                 name = name,
                 dosage = dosage,
                 timeToTake = selectedTime,
@@ -72,11 +92,20 @@ class FormActivity : AppCompatActivity() {
             )
 
             lifecycleScope.launch(Dispatchers.IO) {
-                val medicationId = medicationDao.insert(medication) // Insert only once
-                scheduleReminder(medicationId, selectedTime)
-                launch(Dispatchers.Main) {
-                    Toast.makeText(this@FormActivity, "Medication saved!", Toast.LENGTH_SHORT).show()
-                    finish()
+                if (medicationId != -1) {
+                    medicationDao.update(medication)
+                    scheduleReminder(medicationId.toLong(), selectedTime)
+                    launch(Dispatchers.Main) {
+                        Toast.makeText(this@FormActivity, "Medication updated!", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                } else {
+                    val newMedicationId = medicationDao.insert(medication)
+                    scheduleReminder(newMedicationId, selectedTime)
+                    launch(Dispatchers.Main) {
+                        Toast.makeText(this@FormActivity, "Medication saved!", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
                 }
             }
         }
