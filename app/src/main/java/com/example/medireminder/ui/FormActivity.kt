@@ -53,12 +53,14 @@ class FormActivity : AppCompatActivity() {
         }
 
         addButton.setOnClickListener {
+            addButton.isEnabled = false // Prevent multiple clicks
             val name = nameEditText.text.toString().trim()
             val dosage = dosageEditText.text.toString().trim()
             val note = noteEditText.text.toString().trim()
 
             if (name.isEmpty() || dosage.isEmpty() || selectedTime.isEmpty()) {
                 Toast.makeText(this, "Name, dosage, and time are required", Toast.LENGTH_SHORT).show()
+                addButton.isEnabled = true
                 return@setOnClickListener
             }
 
@@ -70,8 +72,7 @@ class FormActivity : AppCompatActivity() {
             )
 
             lifecycleScope.launch(Dispatchers.IO) {
-                medicationDao.insert(medication)
-                val medicationId = medicationDao.insert(medication) // Assuming insert returns ID
+                val medicationId = medicationDao.insert(medication) // Insert only once
                 scheduleReminder(medicationId, selectedTime)
                 launch(Dispatchers.Main) {
                     Toast.makeText(this@FormActivity, "Medication saved!", Toast.LENGTH_SHORT).show()
@@ -80,7 +81,6 @@ class FormActivity : AppCompatActivity() {
             }
         }
     }
-
 
     private fun scheduleReminder(medicationId: Long, timeToTake: String) {
         val (hour, minute) = timeToTake.split(":").map { it.toInt() }
