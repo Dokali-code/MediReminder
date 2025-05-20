@@ -39,4 +39,13 @@
             android:entryValues="@array/language_values"
             android:defaultValue="en" />
     </PreferenceCategory>
+    <PreferenceCategory android:title="@string/theme_category">
+        <ListPreference
+            android:key="theme_mode"
+            android:title="@string/theme_mode_title"
+            android:summary="@string/theme_mode_summary"
+            android:entries="@array/theme_mode_options"
+            android:entryValues="@array/theme_mode_values"
+            android:defaultValue="system" />
+    </PreferenceCategory>
 </PreferenceScreen>

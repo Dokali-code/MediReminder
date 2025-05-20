@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.medireminder">
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MediReminder">
 
-        <!-- Main Activity -->
+        <!-- Main Activity with Splash Screen -->
         <activity
             android:name=".MainActivity"
             android:theme="@style/Theme.MediReminder.Splash"
@@ -23,17 +25,27 @@
             </intent-filter>
         </activity>
 
-        <!-- Form Activity -->
+        <!-- Form Activity for adding/editing medications -->
         <activity
             android:name=".ui.FormActivity"
+            android:theme="@style/Theme.MediReminder"
             android:exported="false" />
 
-        <receiver android:name=".NotificationActionReceiver" android:exported="false">
+        <!-- Receiver for notification actions -->
+        <receiver
+            android:name=".NotificationActionReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="ACTION_MARK_TAKEN" />
                 <action android:name="ACTION_POSTPONE" />
             </intent-filter>
         </receiver>
+
+        <!-- Service for MedicationReminderWorker -->
+        <service
+            android:name=".workers.MedicationReminderWorker"
+            android:exported="false" />
+
     </application>
 
 </manifest>

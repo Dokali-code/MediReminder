@@ -59,6 +59,9 @@
     <string name="language_category">Langue</string>
     <string name="language_title">Langue de l\'Application</string>
     <string name="language_summary">Choisir la langue de l\'application</string>
+    <string name="theme_category">Thème</string>
+    <string name="theme_mode_title">Thème de l\'Application</string>
+    <string name="theme_mode_summary">Choisir le thème de l\'application</string>
 
     <!-- Arrays for ListPreferences -->
     <string-array name="postpone_durations">
@@ -78,5 +81,15 @@
     <string-array name="language_values">
         <item>en</item>
         <item>fr</item>
+    </string-array>
+    <string-array name="theme_mode_options">
+        <item>Clair</item>
+        <item>Sombre</item>
+        <item>Par défaut du système</item>
+    </string-array>
+    <string-array name="theme_mode_values">
+        <item>light</item>
+        <item>dark</item>
+        <item>system</item>
     </string-array>
 </resources>

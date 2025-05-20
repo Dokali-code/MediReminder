@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -91,7 +92,17 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 setLocale(locale)
             }
             resources.updateConfiguration(config, resources.displayMetrics)
-            requireActivity().recreate() // Recreate activity to apply new locale
+            requireActivity().recreate()
+            true
+        }
+
+        // Theme mode change
+        findPreference<ListPreference>("theme_mode")?.setOnPreferenceChangeListener { _, newValue ->
+            when (newValue as String) {
+                "light" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                "dark" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                "system" -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+            }
             true
         }
     }
@@ -103,7 +114,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             medications.forEach { medication ->
                 if (!medication.isTaken) {
                     val timeParts = medication.timeToTake.split(":").map { it.toIntOrNull() ?: 0 }
-                    if (timeParts.size != 2) return@forEach // Skip invalid time format
+                    if (timeParts.size != 2) return@forEach
                     val (hour, minute) = timeParts
                     val calendar = Calendar.getInstance().apply {
                         set(Calendar.HOUR_OF_DAY, hour)
@@ -114,7 +125,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         }
                     }
                     val delay = calendar.timeInMillis - System.currentTimeMillis()
-                    if (delay < 0) return@forEach // Skip invalid delays
+                    if (delay < 0) return@forEach
                     val data = Data.Builder().putInt("medicationId", medication.id).build()
                     val workRequest = OneTimeWorkRequestBuilder<MedicationReminderWorker>()
                         .setInitialDelay(delay, TimeUnit.MILLISECONDS)
