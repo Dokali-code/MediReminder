@@ -1,31 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App and Navigation -->
     <string name="app_name">Rappel Médical</string>
     <string name="medication_list_title">Liste des Médicaments</string>
     <string name="history_title">Historique</string>
     <string name="settings_title">Paramètres</string>
     <string name="add_medication">Ajouter un Médicament</string>
-    <string name="mark_as_taken">Marquer comme Pris</string>
-    <string name="postpone">Reporter</string>
-    <string name="remove">Supprimer</string>
     <string name="nav_header_desc">En-tête de navigation</string>
     <string name="menu_home">Accueil</string>
     <string name="menu_gallery">Galerie</string>
     <string name="menu_slideshow">Diaporama</string>
     <string name="action_settings">Paramètres</string>
+
+    <!-- Medication Actions -->
+    <string name="mark_as_taken">Marquer comme Pris</string>
+    <string name="postpone">Reporter</string>
+    <string name="remove">Supprimer</string>
+    <string name="delete_button">Supprimer</string>
+    <string name="update_button">Mettre à jour</string>
+    <string name="clear_button">Effacer</string>
+    <string name="cancel_button">Annuler</string>
+    <string name="delete_confirmation">Supprimer le médicament : %s ?</string>
+
+    <!-- FormActivity and form.xml -->
     <string name="name_hint">Nom</string>
     <string name="dosage_hint">Dosage</string>
     <string name="select_time">Sélectionner l\'Heure</string>
     <string name="time_picker_description">Sélecteur d\'heure</string>
     <string name="note_hint">Note (facultatif)</string>
     <string name="add_button">Ajouter</string>
-    <string name="update_button">Mettre à jour</string>
-    <string name="delete_button">Supprimer</string>
-    <string name="cancel_button">Annuler</string>
     <string name="fields_required">Nom, dosage et heure sont requis</string>
     <string name="medication_saved">Médicament enregistré !</string>
     <string name="medication_updated">Médicament mis à jour !</string>
     <string name="medication_not_found">Médicament non trouvé</string>
     <string name="error_saving_medication">Erreur lors de l\'enregistrement du médicament</string>
-    <string name="delete_confirmation">Supprimer le médicament : %s ?</string>
+
+    <!-- Preferences -->
+    <string name="notifications_category">Notifications</string>
+    <string name="enable_notifications_title">Activer les Notifications</string>
+    <string name="enable_notifications_summary">Activer/désactiver les rappels de médicaments</string>
+    <string name="notifications_enabled">Notifications activées</string>
+    <string name="notifications_disabled">Notifications désactivées</string>
+    <string name="postpone_duration_title">Durée de Report</string>
+    <string name="postpone_duration_summary">Définir la durée de report des rappels</string>
+    <string name="reminders_category">Rappels</string>
+    <string name="reset_reminders_title">Réinitialiser les Rappels</string>
+    <string name="reset_reminders_summary">Replanifier tous les rappels de médicaments actifs</string>
+    <string name="reminders_reset">Rappels réinitialisés !</string>
+    <string name="data_management_category">Gestion des Données</string>
+    <string name="clear_history_title">Effacer l\'Historique</string>
+    <string name="clear_history_summary">Supprimer tous les médicaments pris</string>
+    <string name="clear_history_confirmation">Effacer tout l\'historique ?</string>
+    <string name="history_cleared">Historique effacé !</string>
+    <string name="clear_all_medications_title">Supprimer Tous les Médicaments</string>
+    <string name="clear_all_medications_summary">Supprimer tous les médicaments et rappels</string>
+    <string name="clear_all_medications_confirmation">Supprimer tous les médicaments ? Cette action est irréversible.</string>
+    <string name="all_medications_cleared">Tous les médicaments supprimés !</string>
+    <string name="language_category">Langue</string>
+    <string name="language_title">Langue de l\'Application</string>
+    <string name="language_summary">Choisir la langue de l\'application</string>
+
+    <!-- Arrays for ListPreferences -->
+    <string-array name="postpone_durations">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 heure</item>
+    </string-array>
+    <string-array name="postpone_duration_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+    <string-array name="language_options">
+        <item>Anglais</item>
+        <item>Français</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>en</item>
+        <item>fr</item>
+    </string-array>
 </resources>

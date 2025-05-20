@@ -1,31 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App and Navigation -->
     <string name="app_name">MediReminder</string>
     <string name="medication_list_title">Medication List</string>
     <string name="history_title">History</string>
     <string name="settings_title">Settings</string>
     <string name="add_medication">Add Medication</string>
-    <string name="mark_as_taken">Mark as Taken</string>
-    <string name="postpone">Postpone</string>
-    <string name="remove">Remove</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Medication Actions -->
+    <string name="mark_as_taken">Mark as Taken</string>
+    <string name="postpone">Postpone</string>
+    <string name="remove">Remove</string>
+    <string name="delete_button">Delete</string>
+    <string name="update_button">Update</string>
+    <string name="clear_button">Clear</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="delete_confirmation">Delete medication: %s?</string>
+
+    <!-- FormActivity and form.xml -->
     <string name="name_hint">Name</string>
     <string name="dosage_hint">Dosage</string>
     <string name="select_time">Select Time</string>
     <string name="time_picker_description">Time picker</string>
     <string name="note_hint">Note (optional)</string>
     <string name="add_button">Add</string>
-    <string name="update_button">Update</string>
-    <string name="delete_button">Delete</string>
-    <string name="cancel_button">Cancel</string>
     <string name="fields_required">Name, dosage, and time are required</string>
     <string name="medication_saved">Medication saved!</string>
     <string name="medication_updated">Medication updated!</string>
     <string name="medication_not_found">Medication not found</string>
     <string name="error_saving_medication">Error saving medication</string>
-    <string name="delete_confirmation">Delete medication: %s?</string>
+
+    <!-- Preferences -->
+    <string name="notifications_category">Notifications</string>
+    <string name="enable_notifications_title">Enable Notifications</string>
+    <string name="enable_notifications_summary">Turn on/off medication reminders</string>
+    <string name="notifications_enabled">Notifications enabled</string>
+    <string name="notifications_disabled">Notifications disabled</string>
+    <string name="postpone_duration_title">Postpone Duration</string>
+    <string name="postpone_duration_summary">Set how long to postpone reminders</string>
+    <string name="reminders_category">Reminders</string>
+    <string name="reset_reminders_title">Reset Reminders</string>
+    <string name="reset_reminders_summary">Reschedule all active medication reminders</string>
+    <string name="reminders_reset">Reminders reset!</string>
+    <string name="data_management_category">Data Management</string>
+    <string name="clear_history_title">Clear History</string>
+    <string name="clear_history_summary">Delete all taken medications</string>
+    <string name="clear_history_confirmation">Clear all history?</string>
+    <string name="history_cleared">History cleared!</string>
+    <string name="clear_all_medications_title">Clear All Medications</string>
+    <string name="clear_all_medications_summary">Delete all medications and reminders</string>
+    <string name="clear_all_medications_confirmation">Delete all medications? This cannot be undone.</string>
+    <string name="all_medications_cleared">All medications cleared!</string>
+    <string name="language_category">Language</string>
+    <string name="language_title">App Language</string>
+    <string name="language_summary">Choose the language for the app</string>
+
+    <!-- Arrays for ListPreferences -->
+    <string-array name="postpone_durations">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+    </string-array>
+    <string-array name="postpone_duration_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+    </string-array>
+    <string-array name="language_options">
+        <item>English</item>
+        <item>French</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>en</item>
+        <item>fr</item>
+    </string-array>
 </resources>
