@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import androidx.preference.PreferenceManager
 import androidx.work.Data
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
@@ -46,7 +47,9 @@ class NotificationActionReceiver : BroadcastReceiver() {
                         cancelNotification(context, medicationId)
                     }
                     "ACTION_POSTPONE" -> {
-                        scheduleReminder(context, medicationId, 5 * 60 * 1000L)
+                        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+                        val postponeMinutes = prefs.getString("postpone_duration", "15")?.toLongOrNull() ?: 15L
+                        scheduleReminder(context, medicationId, postponeMinutes * 60 * 1000L)
                         cancelNotification(context, medicationId)
                     }
                 }

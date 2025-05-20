@@ -24,6 +24,15 @@ interface MedicationDao {
     @Query("SELECT * FROM medications")
     fun getAllMedications(): Flow<List<Medication>>
 
+    @Query("SELECT * FROM medications")
+    suspend fun getAllMedicationsSync(): List<Medication>
+
     @Query("SELECT * FROM medications WHERE id = :id")
     suspend fun getMedicationById(id: Int): Medication?
+
+    @Query("DELETE FROM medications WHERE isTaken = 1")
+    suspend fun deleteAllTaken()
+
+    @Query("DELETE FROM medications")
+    suspend fun deleteAll()
 }
