@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Rappel Médical</string>
+    <string name="medication_list_title">Liste des Médicaments</string>
+    <string name="history_title">Historique</string>
+    <string name="settings_title">Paramètres</string>
+    <string name="add_medication">Ajouter un Médicament</string>
+    <string name="mark_as_taken">Marquer comme Pris</string>
+    <string name="postpone">Reporter</string>
+    <string name="remove">Supprimer</string>
+    <string name="nav_header_desc">En-tête de navigation</string>
+    <string name="menu_home">Accueil</string>
+    <string name="menu_gallery">Galerie</string>
+    <string name="menu_slideshow">Diaporama</string>
+    <string name="action_settings">Paramètres</string>
+</resources>

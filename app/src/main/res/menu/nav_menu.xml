@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/medicationListFragment"
-        android:title="Reminders" />
+        android:title="@string/medication_list_title" />
     <item
         android:id="@+id/historyFragment"
-        android:title="History" />
+        android:title="@string/history_title" />
     <item
         android:id="@+id/settingsFragment"
-        android:title="Settings" />
+        android:title="@string/settings_title" />
 </menu>

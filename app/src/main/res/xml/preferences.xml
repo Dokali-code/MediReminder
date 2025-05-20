@@ -32,10 +32,12 @@
             android:entries="@array/theme_options"
             android:entryValues="@array/theme_values"
             android:defaultValue="system" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Language">
         <ListPreference
             android:key="language"
-            android:title="Language"
-            android:summary="Choose app language"
+            android:title="App Language"
+            android:summary="Choose the language for the app"
             android:entries="@array/language_options"
             android:entryValues="@array/language_values"
             android:defaultValue="en" />
