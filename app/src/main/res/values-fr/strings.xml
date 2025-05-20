@@ -13,4 +13,19 @@
     <string name="menu_gallery">Galerie</string>
     <string name="menu_slideshow">Diaporama</string>
     <string name="action_settings">Paramètres</string>
+    <string name="name_hint">Nom</string>
+    <string name="dosage_hint">Dosage</string>
+    <string name="select_time">Sélectionner l\'Heure</string>
+    <string name="time_picker_description">Sélecteur d\'heure</string>
+    <string name="note_hint">Note (facultatif)</string>
+    <string name="add_button">Ajouter</string>
+    <string name="update_button">Mettre à jour</string>
+    <string name="delete_button">Supprimer</string>
+    <string name="cancel_button">Annuler</string>
+    <string name="fields_required">Nom, dosage et heure sont requis</string>
+    <string name="medication_saved">Médicament enregistré !</string>
+    <string name="medication_updated">Médicament mis à jour !</string>
+    <string name="medication_not_found">Médicament non trouvé</string>
+    <string name="error_saving_medication">Erreur lors de l\'enregistrement du médicament</string>
+    <string name="delete_confirmation">Supprimer le médicament : %s ?</string>
 </resources>

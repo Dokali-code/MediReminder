@@ -13,7 +13,7 @@
         android:layout_marginTop="36dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Name"
+        android:hint="@string/name_hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +25,7 @@
         android:layout_marginTop="40dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Dosage"
+        android:hint="@string/dosage_hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText" />
 
@@ -43,7 +43,7 @@
             android:id="@+id/tvSelectedTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select Time"
+            android:text="@string/select_time"
             android:textSize="16sp"
             android:layout_gravity="center_vertical" />
 
@@ -56,7 +56,7 @@
             android:id="@+id/btnTimePicker"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:contentDescription="Time picker"
+            android:contentDescription="@string/time_picker_description"
             android:src="@drawable/ic_access_time" />
     </LinearLayout>
 
@@ -68,7 +68,7 @@
         android:layout_marginTop="44dp"
         android:ems="10"
         android:inputType="text"
-        android:hint="Note (optional)"
+        android:hint="@string/note_hint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeContainer" />
 
@@ -79,7 +79,7 @@
         android:layout_marginStart="304dp"
         android:layout_marginTop="44dp"
         android:backgroundTint="@color/teal_200"
-        android:text="Add"
+        android:text="@string/add_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextText4" />
 

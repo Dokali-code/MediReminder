@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.preference.PreferenceManager
 import androidx.work.Data
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
@@ -30,6 +31,15 @@ class FormActivity : AppCompatActivity() {
     private var medicationId: Int = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Apply language from preferences
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        val language = prefs.getString("language", "en") ?: "en"
+        val locale = Locale(language)
+        Locale.setDefault(locale)
+        val config = resources.configuration
+        config.setLocale(locale)
+        resources.updateConfiguration(config, resources.displayMetrics)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.form)
 
@@ -54,7 +64,10 @@ class FormActivity : AppCompatActivity() {
                         noteEditText.setText(it.note ?: "")
                         tvSelectedTime.text = it.timeToTake
                         selectedTime = it.timeToTake
-                        addButton.text = "Update"
+                        addButton.text = getString(R.string.update_button)
+                    } ?: run {
+                        Toast.makeText(this@FormActivity, R.string.medication_not_found, Toast.LENGTH_SHORT).show()
+                        finish()
                     }
                 }
             }
@@ -66,7 +79,7 @@ class FormActivity : AppCompatActivity() {
             val minute = calendar.get(Calendar.MINUTE)
 
             TimePickerDialog(this, { _, hourOfDay, minuteOfHour ->
-                selectedTime = String.format("%02d:%02d", hourOfDay, minuteOfHour)
+                selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minuteOfHour)
                 tvSelectedTime.text = selectedTime
             }, hour, minute, true).show()
         }
@@ -78,7 +91,7 @@ class FormActivity : AppCompatActivity() {
             val note = noteEditText.text.toString().trim()
 
             if (name.isEmpty() || dosage.isEmpty() || selectedTime.isEmpty()) {
-                Toast.makeText(this, "Name, dosage, and time are required", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.fields_required), Toast.LENGTH_SHORT).show()
                 addButton.isEnabled = true
                 return@setOnClickListener
             }
@@ -92,19 +105,26 @@ class FormActivity : AppCompatActivity() {
             )
 
             lifecycleScope.launch(Dispatchers.IO) {
-                if (medicationId != -1) {
-                    medicationDao.update(medication)
-                    scheduleReminder(medicationId.toLong(), selectedTime)
-                    launch(Dispatchers.Main) {
-                        Toast.makeText(this@FormActivity, "Medication updated!", Toast.LENGTH_SHORT).show()
-                        finish()
+                try {
+                    if (medicationId != -1) {
+                        medicationDao.update(medication)
+                        scheduleReminder(medicationId.toLong(), selectedTime)
+                        launch(Dispatchers.Main) {
+                            Toast.makeText(this@FormActivity, getString(R.string.medication_updated), Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
+                    } else {
+                        val newMedicationId = medicationDao.insert(medication)
+                        scheduleReminder(newMedicationId, selectedTime)
+                        launch(Dispatchers.Main) {
+                            Toast.makeText(this@FormActivity, getString(R.string.medication_saved), Toast.LENGTH_SHORT).show()
+                            finish()
+                        }
                     }
-                } else {
-                    val newMedicationId = medicationDao.insert(medication)
-                    scheduleReminder(newMedicationId, selectedTime)
+                } catch (e: Exception) {
                     launch(Dispatchers.Main) {
-                        Toast.makeText(this@FormActivity, "Medication saved!", Toast.LENGTH_SHORT).show()
-                        finish()
+                        Toast.makeText(this@FormActivity, R.string.error_saving_medication, Toast.LENGTH_SHORT).show()
+                        addButton.isEnabled = true
                     }
                 }
             }
@@ -112,7 +132,7 @@ class FormActivity : AppCompatActivity() {
     }
 
     private fun scheduleReminder(medicationId: Long, timeToTake: String) {
-        val (hour, minute) = timeToTake.split(":").map { it.toInt() }
+        val (hour, minute) = timeToTake.split(":").map { it.toIntOrNull() ?: 0 }
         val calendar = Calendar.getInstance().apply {
             set(Calendar.HOUR_OF_DAY, hour)
             set(Calendar.MINUTE, minute)
@@ -123,6 +143,8 @@ class FormActivity : AppCompatActivity() {
         }
 
         val delay = calendar.timeInMillis - System.currentTimeMillis()
+        if (delay < 0) return // Skip invalid delays
+
         val data = Data.Builder().putInt("medicationId", medicationId.toInt()).build()
 
         val workRequest = OneTimeWorkRequestBuilder<MedicationReminderWorker>()

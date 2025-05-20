@@ -13,4 +13,19 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="action_settings">Settings</string>
+    <string name="name_hint">Name</string>
+    <string name="dosage_hint">Dosage</string>
+    <string name="select_time">Select Time</string>
+    <string name="time_picker_description">Time picker</string>
+    <string name="note_hint">Note (optional)</string>
+    <string name="add_button">Add</string>
+    <string name="update_button">Update</string>
+    <string name="delete_button">Delete</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="fields_required">Name, dosage, and time are required</string>
+    <string name="medication_saved">Medication saved!</string>
+    <string name="medication_updated">Medication updated!</string>
+    <string name="medication_not_found">Medication not found</string>
+    <string name="error_saving_medication">Error saving medication</string>
+    <string name="delete_confirmation">Delete medication: %s?</string>
 </resources>

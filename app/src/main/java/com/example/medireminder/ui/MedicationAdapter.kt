@@ -28,10 +28,12 @@ class MedicationAdapter(
             nameTextView.text = medication.name
             dosageTextView.text = medication.dosage
             timeTextView.text = medication.timeToTake
+            updateButton.text = itemView.context.getString(R.string.update_button)
+            deleteButton?.text = itemView.context.getString(R.string.delete_button)
             itemView.setOnClickListener { onMarkAsTaken(medication) }
             updateButton.setOnClickListener { onUpdate(medication) }
             deleteButton?.apply {
-                visibility = if (onDelete != {}) View.VISIBLE else View.GONE
+                visibility = if (medication.isTaken) View.GONE else View.VISIBLE
                 setOnClickListener { onDelete(medication) }
             }
         }

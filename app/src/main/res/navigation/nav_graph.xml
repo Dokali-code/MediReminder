@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<navigation
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
     app:startDestination="@id/medicationListFragment">
@@ -8,29 +7,15 @@
     <fragment
         android:id="@+id/medicationListFragment"
         android:name="com.example.medireminder.ui.MedicationListFragment"
-        android:label="Reminders">
+        android:label="Medication List">
         <action
             android:id="@+id/action_medicationListFragment_to_formActivity"
             app:destination="@id/formActivity" />
     </fragment>
 
-    <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.example.medireminder.ui.HistoryFragment"
-        android:label="History" />
-
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.medireminder.ui.SettingsFragment"
-        android:label="Settings" />
-
     <activity
         android:id="@+id/formActivity"
         android:name="com.example.medireminder.ui.FormActivity"
-        android:label="Add/Edit Medication">
-        <argument
-            android:name="medicationId"
-            app:argType="integer"
-            android:defaultValue="-1" />
-    </activity>
+        android:label="Add/Edit Medication" />
+
 </navigation>
